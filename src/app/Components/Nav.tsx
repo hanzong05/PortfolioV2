@@ -1,9 +1,11 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import { useTransition, animated } from 'react-spring';
 
 export default function NavBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const mobileMenuRef = useRef(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -23,6 +25,10 @@ export default function NavBar() {
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
+  };
+
+  const toggleTheme = () => {
+    setTheme(prevTheme => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
   const navLinks = [
@@ -77,9 +83,68 @@ export default function NavBar() {
         </div>
       </div>
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div ref={mobileMenuRef} className="md:hidden fixed inset-0 z-40 bg-black bg-opacity-40 flex flex-col">
-          <div className="bg-white dark:bg-gray-900 w-4/5 max-w-xs h-full shadow-lg p-6 space-y-6 relative">
+      <MobileMenu 
+        isMobileMenuOpen={isMobileMenuOpen} 
+        mobileMenuRef={mobileMenuRef} 
+        closeMobileMenu={closeMobileMenu} 
+        navLinks={navLinks} 
+        toggleTheme={toggleTheme} 
+        theme={theme} 
+      />
+    </nav>
+  );
+}
+
+// New MobileMenu component for transitions
+interface MobileMenuProps {
+  isMobileMenuOpen: boolean;
+  mobileMenuRef: React.RefObject<HTMLDivElement | null>;
+  closeMobileMenu: () => void;
+  navLinks: { text: string; href: string }[];
+  toggleTheme: () => void;
+  theme: 'light' | 'dark';
+}
+
+const MobileMenu: React.FC<MobileMenuProps> = ({
+  isMobileMenuOpen,
+  mobileMenuRef,
+  closeMobileMenu,
+  navLinks,
+  toggleTheme,
+  theme,
+}) => {
+  const transitions = useTransition(isMobileMenuOpen, {
+    from: { opacity: 0, transform: 'translateX(100%)' },
+    enter: { opacity: 1, transform: 'translateX(0%)' },
+    leave: { opacity: 0, transform: 'translateX(100%)' },
+    config: { tension: 250, friction: 30 },
+  });
+
+  const backdropTransitions = useTransition(isMobileMenuOpen, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0 },
+    config: { tension: 250, friction: 30 },
+  });
+
+  return (
+    <>
+      {backdropTransitions((styles, item) =>
+        item && (
+          <animated.div
+            style={styles}
+            className="md:hidden fixed inset-0 z-40 bg-black/50"
+            onClick={closeMobileMenu}
+          />
+        )
+      )}
+      {transitions((styles, item) =>
+        item && (
+          <animated.div
+            ref={mobileMenuRef}
+            style={styles}
+            className="md:hidden fixed inset-y-0 right-0 z-50 bg-white dark:bg-gray-900 w-4/5 max-w-xs h-full shadow-lg p-6 space-y-6 flex flex-col"
+          >
             <button
               onClick={closeMobileMenu}
               className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
@@ -89,7 +154,7 @@ export default function NavBar() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <nav className="flex flex-col space-y-4 mt-8">
+            <nav className="flex flex-col space-y-4 mt-8 flex-grow">
               {navLinks.map(({ text, href }) => (
                 <a
                   key={text}
@@ -100,6 +165,23 @@ export default function NavBar() {
                   {text}
                 </a>
               ))}
+              {/* Theme Toggle Button for Mobile Menu */}
+              <button
+                onClick={toggleTheme}
+                className="flex items-center gap-2 p-2 rounded-md text-gray-800 hover:text-blue-600 dark:text-gray-200 dark:hover:text-blue-400 font-medium transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-300"
+                aria-label="Toggle theme"
+              >
+                {theme === 'dark' ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9 9 0 008.354-5.646z" />
+                  </svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h1M3 12H2m15.325 5.232l-.707.707M6.343 6.343l-.707-.707m12.728 0l-.707-.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                )}
+                {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
+              </button>
               <a
                 href="/resume.docx"
                 target="_blank"
@@ -113,9 +195,15 @@ export default function NavBar() {
                 Resume
               </a>
             </nav>
-          </div>
-        </div>
+            <div className="mt-auto mb-4">
+              {/* This is the 'N' icon at the bottom of the mobile menu */}
+              <div className="w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-700 dark:text-gray-300 font-bold text-lg">
+                N
+              </div>
+            </div>
+          </animated.div>
+        )
       )}
-    </nav>
+    </>
   );
-}
+};
