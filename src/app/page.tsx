@@ -526,18 +526,22 @@ const aboutHeaderAnimation = useSpring({
   ];
 
   const [typing, setTyping] = useState('');
-  const [currentLine, setCurrentLine] = useState(codeLines.length); // Initialize to show all lines
-  const [isLoaded, setIsLoaded] = useState(true); // Initialize as true
+  const [currentLine, setCurrentLine] = useState(0); // Changed back to 0
+  const [isLoaded, setIsLoaded] = useState(false); // Changed back to false
   
   // Start typing animation when hero section loads
   useEffect(() => {
-    // This useEffect is no longer needed to delay loading; isLoaded is true by default
-    // If you want a typing effect AFTER initial load, this logic needs to be revisited.
-    // setIsLoaded(true); // Already initialized as true
+    if (true) { // Changed condition to always trigger, or you can link it to hero visibility again if desired
+      const timer = setTimeout(() => {
+        setIsLoaded(true);
+      }, 1500); // Start typing after other hero animations (adjust delay as needed)
+      
+      return () => clearTimeout(timer);
+    }
   }, []); // Empty dependency array means it runs once on mount
   
   useEffect(() => {
-    // This effect will only run if currentLine is less than codeLines.length, which it won't be initially
+    // This effect will now run as currentLine starts at 0
     if (!isLoaded || currentLine >= codeLines.length) return;
     
     const targetLine = codeLines[currentLine];
