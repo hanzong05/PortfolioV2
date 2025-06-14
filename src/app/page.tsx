@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import Navbar from './Components/Nav';
-import { motion, useScroll, useInView, useMotionValueEvent } from 'framer-motion';
 import { useSpring, animated, useTransition } from 'react-spring';
 import Head from 'next/head';
 
@@ -42,7 +41,6 @@ const useIntersectionObserver = (options = {}) => {
 
 export default function Page() {
 
-  const { scrollY } = useScroll()
   type Tech = {
     icon: string;
     name: string;
@@ -63,12 +61,6 @@ export default function Page() {
     demoLink: string;
   };
   const [activeProject, setActiveProject] = useState<Project | null>(null);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  useMotionValueEvent(scrollY, "change", (latest: number) => {
-    console.log("Page scroll: ", latest)
-  })
-
 
   // Contact form state
   const [formData, setFormData] = useState({
@@ -81,22 +73,13 @@ export default function Page() {
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
 
   // Intersection observer refs for each section
-  const [heroLoaded, setHeroLoaded] = useState(false);
+  const heroRef = useRef<HTMLElement>(null);
   const [aboutRef, aboutVisible, aboutHasIntersected] = useIntersectionObserver();
   const [educationRef, educationVisible, educationHasIntersected] = useIntersectionObserver();
   const [experienceRef, experienceVisible, experienceHasIntersected] = useIntersectionObserver();
   const [techStackRef, techStackVisible, techStackHasIntersected] = useIntersectionObserver();
   const [projectsRef, projectsVisible, projectsHasIntersected] = useIntersectionObserver();
   const [contactRef, contactVisible, contactHasIntersected] = useIntersectionObserver();
-
-  // Trigger hero animations immediately on component mount
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setHeroLoaded(true);
-    }, 100); // Small delay to ensure smooth rendering
-    
-    return () => clearTimeout(timer);
-  }, []);
 
   // Add smooth scrolling functionality
   useEffect(() => {
@@ -296,90 +279,93 @@ export default function Page() {
 
   // Hero section animations - trigger immediately on mount
   const titleAnimation = useSpring({
-    from: { opacity: 0, transform: 'translateY(-30px)' },
+    from: { opacity: 1, transform: 'translateY(0px)' },
     to: { 
-      opacity: heroLoaded ? 1 : 0, 
-      transform: heroLoaded ? 'translateY(0)' : 'translateY(-30px)' 
+      opacity: 1, 
+      transform: 'translateY(0px)' 
     },
     config: { tension: 180, friction: 12 }
   });
   
   const subtitleAnimation = useSpring({
-    from: { opacity: 0, transform: 'translateY(20px)' },
+    from: { opacity: 1, transform: 'translateY(0px)' },
     to: { 
-      opacity: heroLoaded ? 1 : 0, 
-      transform: heroLoaded ? 'translateY(0)' : 'translateY(20px)' 
+      opacity: 1, 
+      transform: 'translateY(0px)' 
     },
     config: { tension: 180, friction: 12 },
-    delay: heroLoaded ? 300 : 0
+    delay: 0
   });
   
   const descriptionAnimation = useSpring({
-    from: { opacity: 0, transform: 'translateY(20px)' },
+    from: { opacity: 1, transform: 'translateY(0px)' },
     to: { 
-      opacity: heroLoaded ? 1 : 0, 
-      transform: heroLoaded ? 'translateY(0)' : 'translateY(20px)' 
+      opacity: 1, 
+      transform: 'translateY(0px)' 
     },
     config: { tension: 180, friction: 12 },
-    delay: heroLoaded ? 600 : 0
+    delay: 0
   });
   
   const buttonsAnimation = useSpring({
-    from: { opacity: 0, transform: 'translateY(30px)' },
+    from: { opacity: 1, transform: 'translateY(0px)' },
     to: { 
-      opacity: heroLoaded ? 1 : 0, 
-      transform: heroLoaded ? 'translateY(0)' : 'translateY(30px)' 
+      opacity: 1, 
+      transform: 'translateY(0px)' 
     },
     config: { tension: 180, friction: 12 },
-    delay: heroLoaded ? 900 : 0
+    delay: 0
   });
   
   const socialsAnimation = useSpring({
-    from: { opacity: 0, transform: 'scale(0.8)' },
+    from: { opacity: 1, transform: 'scale(1)' },
     to: { 
-      opacity: heroLoaded ? 1 : 0, 
-      transform: heroLoaded ? 'scale(1)' : 'scale(0.8)' 
+      opacity: 1, 
+      transform: 'scale(1)' 
     },
     config: { tension: 180, friction: 12 },
-    delay: heroLoaded ? 1200 : 0
+    delay: 0
   });
 
   const cardAnimation = useSpring({
-    from: { opacity: 0, transform: 'translateX(50px) rotateY(15deg)' },
+    from: { opacity: 1, transform: 'translateX(0px) rotateY(0deg)' },
     to: { 
-      opacity: heroLoaded ? 1 : 0, 
-      transform: heroLoaded ? 'translateX(0px) rotateY(0deg)' : 'translateX(50px) rotateY(15deg)' 
+      opacity: 1, 
+      transform: 'translateX(0px) rotateY(0deg)' 
     },
     config: { mass: 1, tension: 180, friction: 20 },
-    delay: heroLoaded ? 400 : 0
+    delay: 0
   });
   
   const dotsAnimation = useSpring({
-    from: { opacity: 0, transform: 'scale(0.5)' },
+    from: { opacity: 1, transform: 'scale(1)' },
     to: { 
-      opacity: heroLoaded ? 1 : 0, 
-      transform: heroLoaded ? 'scale(1)' : 'scale(0.5)' 
+      opacity: 1, 
+      transform: 'scale(1)' 
     },
     config: { mass: 1, tension: 200, friction: 15 },
-    delay: heroLoaded ? 700 : 0
+    delay: 0
   });
   
   const fileNameAnimation = useSpring({
-    from: { opacity: 0, transform: 'translateX(20px)' },
+    from: { opacity: 1, transform: 'translateX(0px)' },
     to: { 
-      opacity: heroLoaded ? 1 : 0, 
-      transform: heroLoaded ? 'translateX(0px)' : 'translateX(20px)' 
+      opacity: 1, 
+      transform: 'translateX(0px)' 
     },
     config: { mass: 1, tension: 170, friction: 14 },
-    delay: heroLoaded ? 1000 : 0
+    delay: 0
   });
 
   // About section animations
-const aboutHeaderAnimation = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-};
-
+const aboutHeaderAnimation = useSpring({
+  from: { opacity: 0, transform: 'translateY(40px)' },
+  to: { 
+    opacity: aboutHasIntersected ? 1 : 0, 
+    transform: aboutHasIntersected ? 'translateY(0)' : 'translateY(40px)' 
+  },
+  config: { tension: 180, friction: 12 }
+});
 
   const profileAnimation = useSpring({
     from: { opacity: 0, transform: 'translateX(-50px) scale(0.9)' },
@@ -527,10 +513,6 @@ const aboutHeaderAnimation = {
   });
 
   // Typing animation for the code section
-  const [typing, setTyping] = useState('');
-  const [currentLine, setCurrentLine] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(false);
-  
   const codeLines = [
     "// Software Engineer",
     "const developer = {",
@@ -542,19 +524,20 @@ const aboutHeaderAnimation = {
     "  learning: 'Always'",
     "};"
   ];
+
+  const [typing, setTyping] = useState('');
+  const [currentLine, setCurrentLine] = useState(codeLines.length); // Initialize to show all lines
+  const [isLoaded, setIsLoaded] = useState(true); // Initialize as true
   
   // Start typing animation when hero section loads
   useEffect(() => {
-    if (heroLoaded) {
-      const timer = setTimeout(() => {
-        setIsLoaded(true);
-      }, 1500); // Start typing after other hero animations
-      
-      return () => clearTimeout(timer);
-    }
-  }, [heroLoaded]);
+    // This useEffect is no longer needed to delay loading; isLoaded is true by default
+    // If you want a typing effect AFTER initial load, this logic needs to be revisited.
+    // setIsLoaded(true); // Already initialized as true
+  }, []); // Empty dependency array means it runs once on mount
   
   useEffect(() => {
+    // This effect will only run if currentLine is less than codeLines.length, which it won't be initially
     if (!isLoaded || currentLine >= codeLines.length) return;
     
     const targetLine = codeLines[currentLine];
@@ -710,7 +693,7 @@ const aboutHeaderAnimation = {
     <Head>
       <title>Hanz Pillerva | Portfolio</title>
     </Head>
-    <section>
+    <section ref={heroRef}>
       
       <div className="fixed top-0 left-0 right-0 z-50">
         <Navbar />
@@ -722,36 +705,37 @@ const aboutHeaderAnimation = {
       <div className="min-h-screen 
                     bg-white dark:bg-gray-900 
                     text-gray-800 dark:text-white 
-                    flex flex-col items-center justify-center py-12 px-2 sm:px-4 md:px-8 
+                    flex flex-col items-center justify-center py-8 sm:py-12 px-2 sm:px-4 md:px-8 
                     transition-colors duration-300
-                    pt-16 w-full">
-        <div className="w-full max-w-6xl flex flex-col lg:flex-row items-start lg:items-center justify-between text-center lg:text-left gap-8 md:gap-12">
+                    pt-20 sm:pt-24 w-full">
+        <div className="w-full max-w-6xl flex flex-col lg:flex-row items-start lg:items-center justify-between text-center lg:text-left gap-6 sm:gap-8 md:gap-12">
 
-          <div className="w-full lg:w-1/2 mb-12 md:mb-16 lg:mb-0">
-            <animated.div style={profileAnimation} className="mb-6">
-              <p className="text-blue-600 dark:text-blue-400 text-xl sm:text-2xl">Hello! I'm</p>
-              <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold mt-3">
+          <div className="w-full lg:w-1/2 mb-8 sm:mb-12 md:mb-16 lg:mb-0">
+            {/* Replaced animated.div with a regular div */}
+            <div className="mb-4 sm:mb-6">
+              <p className="text-blue-600 dark:text-blue-400 text-lg sm:text-xl md:text-2xl">Hello! I'm</p>
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mt-2 sm:mt-3">
                 <span className="text-gray-800 dark:text-white">Hanz</span>{" "}
                 <span className="text-blue-600 dark:text-blue-400">Pillerva</span>
               </h1>
-            </animated.div>
+            </div>
             
-            <animated.h2 style={subtitleAnimation} className="text-xl sm:text-2xl md:text-3xl text-gray-600 dark:text-gray-300 mb-6 md:mb-8">
+            <animated.h2 style={subtitleAnimation} className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 md:mb-8">
               Full-Stack Web Developer
             </animated.h2>
             
-            <animated.p style={descriptionAnimation} className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-8 md:mb-10 max-w-xl mx-auto">
+            <animated.p style={descriptionAnimation} className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 md:mb-10 max-w-xl mx-auto">
               Building elegant solutions to complex problems with modern
               technologies.
             </animated.p>
             
-            <animated.div style={buttonsAnimation} className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 mb-8 md:mb-10 w-full">
+            <animated.div style={buttonsAnimation} className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8 md:mb-10 w-full">
               <a 
                 href="#contact" 
                 className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 
                         dark:bg-blue-400 dark:hover:bg-blue-500 
                         text-white 
-                        px-6 md:px-8 py-3 md:py-4 rounded-md font-medium transition-colors text-base md:text-lg text-center"
+                        px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-md font-medium transition-colors text-sm sm:text-base md:text-lg text-center"
               >
                 Contact Me
               </a>
@@ -761,20 +745,20 @@ const aboutHeaderAnimation = {
                         border border-gray-300 hover:border-gray-400 
                         dark:border-gray-700 dark:hover:border-gray-500 
                         text-gray-700 dark:text-white 
-                        px-6 md:px-8 py-3 md:py-4 rounded-md font-medium transition-colors text-base md:text-lg text-center"
+                        px-4 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 rounded-md font-medium transition-colors text-sm sm:text-base md:text-lg text-center"
               >
                 View Projects
               </a>
             </animated.div>
             
-            <animated.div style={socialsAnimation} className="flex justify-center gap-6 md:gap-8">
+            <animated.div style={socialsAnimation} className="flex justify-center gap-4 sm:gap-6 md:gap-8">
               <a 
                 href="https://github.com/hanzong05" 
                 className="text-gray-500 hover:text-gray-800 
                         dark:text-gray-400 dark:hover:text-white 
                         transition-colors"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="sm:w-7 sm:h-7">
                   <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                 </svg>
               </a>
@@ -784,38 +768,37 @@ const aboutHeaderAnimation = {
                         dark:text-gray-400 dark:hover:text-white 
                         transition-colors"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="sm:w-7 sm:h-7">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                 </svg>
               </a>
-             
             </animated.div>
           </div>
           
-          <animated.div style={cardAnimation} className="w-full lg:w-1/2">
+          <animated.div style={cardAnimation} className="w-full lg:w-1/2 mt-8 sm:mt-0">
             <div className="bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-2xl w-full max-w-full">
-              <div className="flex items-center px-4 py-3 bg-gray-100 dark:bg-gray-900">
-                <animated.div style={dotsAnimation} className="flex space-x-2">
-                  <div className="w-4 h-4 rounded-full bg-red-500"></div>
-                  <div className="w-4 h-4 rounded-full bg-yellow-500"></div>
-                  <div className="w-4 h-4 rounded-full bg-green-500"></div>
+              <div className="flex items-center px-3 sm:px-4 py-2 sm:py-3 bg-gray-100 dark:bg-gray-900">
+                <animated.div style={dotsAnimation} className="flex space-x-1.5 sm:space-x-2">
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-red-500"></div>
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-yellow-500"></div>
+                  <div className="w-3 h-3 sm:w-4 sm:h-4 rounded-full bg-green-500"></div>
                 </animated.div>
                 <animated.div style={fileNameAnimation} className="ml-auto text-xs sm:text-sm text-gray-500">
                   developer.js
                 </animated.div>
               </div>
               
-              <div className="p-4 sm:p-8 font-mono text-sm sm:text-base">
+              <div className="p-3 sm:p-4 md:p-8 font-mono text-xs sm:text-sm md:text-base">
                 {completedLines.map((line, index) => (
-                  <div key={index} className="mb-1">
+                  <div key={index} className="mb-0.5 sm:mb-1">
                     {formatCodeLine(line)}
                   </div>
                 ))}
                 
                 {currentLine < codeLines.length && (
-                  <div className="mb-1 flex">
+                  <div className="mb-0.5 sm:mb-1 flex">
                     {formatCodeLine(currentTypingLine)}
-                    <animated.span style={cursorAnimation} className="ml-1 inline-block w-2 h-4 bg-blue-400"></animated.span>
+                    <animated.span style={cursorAnimation} className="ml-0.5 sm:ml-1 inline-block w-1.5 sm:w-2 h-3 sm:h-4 bg-blue-400"></animated.span>
                   </div>
                 )}
               </div>
@@ -826,19 +809,16 @@ const aboutHeaderAnimation = {
     </section>
     <section ref={aboutRef} id="about" className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-8 max-w-6xl">
-       <motion.div
-  ref={ref}
-      variants={aboutHeaderAnimation}
-      initial="hidden"
-      animate={isInView ? "visible" : "hidden"}
->
-  <div className="text-center mb-12">
-    <p className="text-lg text-gray-500 dark:text-gray-400 mb-2">GET TO KNOW ME</p>
-    <h2 className="text-5xl font-bold text-gray-800 dark:text-white mb-4">
-      About Me
-    </h2>
-  </div>
-</motion.div>
+        <animated.div
+          style={aboutHeaderAnimation}
+        >
+          <div className="text-center mb-12">
+            <p className="text-lg text-gray-500 dark:text-gray-400 mb-2">GET TO KNOW ME</p>
+            <h2 className="text-5xl font-bold text-gray-800 dark:text-white mb-4">
+              About Me
+            </h2>
+          </div>
+        </animated.div>
         <div className="flex flex-col lg:flex-row items-start gap-12">
           <animated.div style={profileAnimation} className="w-full lg:w-2/5 flex flex-col items-center text-center">
             <div className="relative w-64 h-64 rounded-full overflow-hidden mb-8 border-4 border-white dark:border-gray-700">
