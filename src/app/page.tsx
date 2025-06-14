@@ -368,13 +368,13 @@ const aboutHeaderAnimation = useSpring({
 });
 
   const profileAnimation = useSpring({
-    from: { opacity: 0, transform: 'translateX(-50px) scale(0.9)' },
+    from: { opacity: 1, transform: 'translateX(0px) scale(1)' },
     to: { 
-      opacity: aboutHasIntersected ? 1 : 0, 
-      transform: aboutHasIntersected ? 'translateX(0) scale(1)' : 'translateX(-50px) scale(0.9)' 
+      opacity: 1, 
+      transform: 'translateX(0px) scale(1)' 
     },
     config: { tension: 180, friction: 12 },
-    delay: aboutHasIntersected ? 200 : 0
+    delay: 0
   });
 
   const contentAnimation = useSpring({
@@ -692,6 +692,7 @@ const aboutHeaderAnimation = useSpring({
     <>
     <Head>
       <title>Hanz Pillerva | Portfolio</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
     </Head>
     <section ref={heroRef}>
       
@@ -711,14 +712,13 @@ const aboutHeaderAnimation = useSpring({
         <div className="w-full max-w-6xl flex flex-col lg:flex-row items-start lg:items-center justify-between text-center lg:text-left gap-6 sm:gap-8 md:gap-12">
 
           <div className="w-full lg:w-1/2 mb-8 sm:mb-12 md:mb-16 lg:mb-0">
-            {/* Replaced animated.div with a regular div */}
-            <div className="mb-4 sm:mb-6">
+            <animated.div style={profileAnimation} className="mb-4 sm:mb-6">
               <p className="text-blue-600 dark:text-blue-400 text-lg sm:text-xl md:text-2xl">Hello! I'm</p>
               <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold mt-2 sm:mt-3">
                 <span className="text-gray-800 dark:text-white">Hanz</span>{" "}
                 <span className="text-blue-600 dark:text-blue-400">Pillerva</span>
               </h1>
-            </div>
+            </animated.div>
             
             <animated.h2 style={subtitleAnimation} className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 md:mb-8">
               Full-Stack Web Developer
@@ -807,7 +807,7 @@ const aboutHeaderAnimation = useSpring({
         </div>
       </div>
     </section>
-    <section ref={aboutRef} id="about" className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+    <section ref={aboutRef} id="about" className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300 overflow-x-hidden">
       <div className="container mx-auto px-4 md:px-8 max-w-6xl">
         <animated.div
           style={aboutHeaderAnimation}
@@ -1148,7 +1148,7 @@ const aboutHeaderAnimation = useSpring({
     </section>  {/* <-- Make sure this closing tag is present and at the right place */}
 
     {/* CONTACT SECTION */}
-    <section ref={contactRef} id="contact" className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300 w-full">
+    <section ref={contactRef} id="contact" className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300 w-full overflow-x-hidden">
       <div className="container mx-auto px-2 sm:px-4 md:px-8 max-w-6xl">
         {/* Section Header */}
         <animated.div style={contactHeaderAnimation} className="text-center mb-8 md:mb-12">
