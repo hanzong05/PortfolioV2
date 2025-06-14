@@ -36,8 +36,6 @@ export default function NavBar() {
     { text: 'Home', href: '#home' },
     { text: 'About', href: '#about' },
     { text: 'Projects', href: '#projects' },
-    { text: 'Skills', href: '#skills' },
-    { text: 'Achievements', href: '#achievements' },
     { text: 'Contact', href: '#contact' },
   ];
 
@@ -59,7 +57,7 @@ export default function NavBar() {
               </a>
             ))}
             <a
-              href="/resume.pdf"
+              href="/resume.docx"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 bg-blue-400 hover:bg-blue-500 text-white px-4 py-2 rounded-md font-semibold transition-colors text-base shadow hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-300"

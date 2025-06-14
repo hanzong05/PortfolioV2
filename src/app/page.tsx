@@ -40,7 +40,7 @@ const useIntersectionObserver = (options = {}) => {
 
 // Custom hook for staggered animations
 
-export default function Welcome() {
+export default function Page() {
 
   const { scrollY } = useScroll()
   type Tech = {
@@ -64,7 +64,7 @@ export default function Welcome() {
   };
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
   useMotionValueEvent(scrollY, "change", (latest: number) => {
     console.log("Page scroll: ", latest)
   })
@@ -203,7 +203,7 @@ export default function Welcome() {
     id: 1,
     title: "Payroll System for Eljin Corporation",
     category: "web",
-    image: "https://via.placeholder.com/600x340", // Replace with real screenshot if available
+    image: "/Img/hris.jpg", // Use the real image from public folder
     description: "A comprehensive payroll and employee management system for Eljin Corporation, featuring secure authentication, attendance tracking, and automated payroll calculations.",
     technologies: ["React", "Laravel", "MySQL"],
     features: [
@@ -213,14 +213,14 @@ export default function Welcome() {
       "Customizable dashboards for different user types",
       "Automated payroll calculations and reporting"
     ],
-    link: "https://github.com/your-username/payroll-system", // Update if public repo exists
+    link: "https://github.com/hanzong05/hris", // Update if this is the correct repo
     demoLink: "https://eljincorp.com/"
   },
   {
     id: 2,
     title: "Waste Processing System",
     category: "web",
-    image: "https://via.placeholder.com/600x340", // Replace with real screenshot if available
+    image: "/Img/smms.jpg", // Use the real image from public folder
     description: "A real-time waste tracking and management platform for Eljin Corporation, providing map visualization, analytics, and role-based access for efficient waste processing.",
     technologies: ["React", "Laravel", "MySQL"],
     features: [
@@ -229,22 +229,22 @@ export default function Welcome() {
       "Dynamic reporting and dashboard analytics",
       "Mobile-friendly and responsive UI"
     ],
-    link: "https://github.com/your-username/waste-management-system", // Update if public repo exists
+    link: "https://github.com/hanzong05/SMMS", // Update if this is the correct repo
     demoLink: "https://wasteprocessing.eljincorp.com/"
   },
   {
     id: 3,
     title: "Portfolio Website",
     category: "web",
-    image: "https://via.placeholder.com/600x340", // Replace with real screenshot if available
+    image: "/Img/portfolio.jpg", // Use the real image from public folder
     description: "A personal portfolio showcasing projects, skills, and contact information in a sleek and responsive layout.",
-    technologies: ["React", "Laravel"],
+    technologies: ["React", "NextJS"],
     features: [
       "Interactive project gallery",
       "Responsive design",
     ],
-    link: "https://github.com/your-username/portfolio", // Update if public repo exists
-    demoLink: "https://your-portfolio-demo.com" // Update with your real portfolio URL if available
+    link: "https://github.com/hanzong05/Portfoliov2",
+    demoLink: "https://portfolio-v2-2aua.vercel.app/"
   }
 ];
 
@@ -537,7 +537,7 @@ const aboutHeaderAnimation = {
     "  name: 'Hanz Pillerva',",
     "  skills: ['React', 'Node.js', 'Php', 'Laravel',",
     "           'JavaScript', 'HTML/CSS', 'Mysql'],",
-    "  focuses: ['Full-Stack', 'UI/UX', 'Web Performance',",
+    "  focuses: ['Full-Stack' 'Web Performance',",
     "            'Responsive Design'],",
     "  learning: 'Always'",
     "};"
@@ -769,7 +769,7 @@ const aboutHeaderAnimation = {
             
             <animated.div style={socialsAnimation} className="flex justify-center gap-6 md:gap-8">
               <a 
-                href="https://github.com" 
+                href="https://github.com/hanzong05" 
                 className="text-gray-500 hover:text-gray-800 
                         dark:text-gray-400 dark:hover:text-white 
                         transition-colors"
@@ -779,7 +779,7 @@ const aboutHeaderAnimation = {
                 </svg>
               </a>
               <a 
-                href="https://linkedin.com" 
+                href="https://www.linkedin.com/in/hanz-pillerva-720a20349?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
                 className="text-gray-500 hover:text-gray-800 
                         dark:text-gray-400 dark:hover:text-white 
                         transition-colors"
@@ -788,17 +788,7 @@ const aboutHeaderAnimation = {
                   <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zM13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                 </svg>
               </a>
-              <a 
-                href="mailto:email@example.com" 
-                className="text-gray-500 hover:text-gray-800 
-                        dark:text-gray-400 dark:hover:text-white 
-                        transition-colors"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                  <polyline points="22,6 12,13 2,6"></polyline>
-                </svg>
-              </a>
+             
             </animated.div>
           </div>
           
@@ -834,7 +824,6 @@ const aboutHeaderAnimation = {
         </div>
       </div>
     </section>
-
     <section ref={aboutRef} id="about" className="py-20 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4 md:px-8 max-w-6xl">
        <motion.div
@@ -853,14 +842,16 @@ const aboutHeaderAnimation = {
         <div className="flex flex-col lg:flex-row items-start gap-12">
           <animated.div style={profileAnimation} className="w-full lg:w-2/5 flex flex-col items-center text-center">
             <div className="relative w-64 h-64 rounded-full overflow-hidden mb-8 border-4 border-white dark:border-gray-700">
-              <div className="w-full h-full bg-gradient-to-br from-blue-500 to-blue-700 dark:from-blue-400 dark:to-blue-600 flex items-center justify-center text-white text-6xl font-bold">
-                HP
-              </div>
+              <img
+                src="/Img/profile.jpg"
+                alt="Profile"
+                className="w-full h-full object-cover"
+              />
             </div>
             
             <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
               I'm a passionate Full-Stack Developer who loves building 
-              dynamic, user-friendly applications. I thrive on solving 
+              making system projects, and company systems. I thrive on solving 
               problems, creating seamless experiences, and continuously 
               expanding my skills. Always eager to learn and grow, I'm currently 
               looking for new opportunities to contribute and innovate.
@@ -882,11 +873,11 @@ const aboutHeaderAnimation = {
                 <div className="flex justify-between items-start border-b border-gray-200 dark:border-gray-700 pb-4 mb-4">
                   <div>
                     <h4 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Tarlac State University</h4>
-                    <p className="text-gray-500 dark:text-gray-400">BS in Computer Science</p>
+                    <p className="text-gray-500 dark:text-gray-400">BS in Information Systems</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-gray-700 dark:text-gray-300">2017 - 2021</p>
-                    <p className="text-gray-500 dark:text-gray-400">CGPA: 3.8</p>
+                    <p className="text-gray-700 dark:text-gray-300">2020 - 2024</p>
+                    <p className="text-gray-500 dark:text-gray-400">GPA: 2.50 </p>
                   </div>
                 </div>
               </animated.div>
@@ -899,7 +890,7 @@ const aboutHeaderAnimation = {
                   <div className="flex justify-between items-start mb-3">
                     <h4 className="text-xl font-semibold text-gray-700 dark:text-gray-200">Full-Stack Web Developer</h4>
                     <div className="text-right">
-                      <p className="text-gray-700 dark:text-gray-300">Jan 2022 - Present</p>
+                      <p className="text-gray-700 dark:text-gray-300">Jan 2020 - Present</p>
                       <p className="text-gray-500 dark:text-gray-400">Remote</p>
                     </div>
                   </div>
@@ -907,11 +898,11 @@ const aboutHeaderAnimation = {
                   <div className="space-y-3">
                     <div className="flex items-start">
                       <div className="min-w-4 h-4 mt-1.5 mr-3 border-l-2 border-blue-500 dark:border-blue-400"></div>
-                      <p className="text-gray-600 dark:text-gray-300">Improved website performance, increasing mobile traffic by 10%</p>
+                      <p className="text-gray-600 dark:text-gray-300">After making multiple projects for other clients, now finding a way for companies</p>
                     </div>
                     <div className="flex items-start">
                       <div className="min-w-4 h-4 mt-1.5 mr-3 border-l-2 border-blue-500 dark:border-blue-400"></div>
-                      <p className="text-gray-600 dark:text-gray-300">Developed a mental health tracking platform, adopted by 700+ students</p>
+                      <p className="text-gray-600 dark:text-gray-300">Developed waste management and payroll systems for Eljin Corporation</p>
                     </div>
                     <div className="flex items-start">
                       <div className="min-w-4 h-4 mt-1.5 mr-3 border-l-2 border-blue-500 dark:border-blue-400"></div>
@@ -1009,26 +1000,77 @@ const aboutHeaderAnimation = {
           </p>
         </animated.div>
         
-        <animated.div style={filterAnimation} className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8 md:mb-12">
-          <button 
-            onClick={() => setFilter('all')}
-            className={`px-4 md:px-6 py-2 md:py-3 rounded-full transition-colors duration-300
-                      ${filter === 'all' 
-                        ? 'bg-blue-600 dark:bg-blue-500 text-white' 
-                        : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
-          >
-            All Projects
-          </button>
-          <button 
-            onClick={() => setFilter('web')}
-            className={`px-4 md:px-6 py-2 md:py-3 rounded-full transition-colors duration-300
-                      ${filter === 'web' 
-                        ? 'bg-blue-600 dark:bg-blue-500 text-white' 
-                        : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'}`}
-          >
-            Web Development
-          </button>
+        {/* Project Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {filteredProjects.map((project, index) => (
+            <animated.div
+              key={project.id}
+              ref={projectRefs[index]}
+              style={projectItemAnimation(index, true)}
+              className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+              onClick={() => setActiveProject(project)}
+            >
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                />
+                {/* This div was added back to ensure the modal opens. The 'Click to view details' text itself is commented out */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                  {/* <span className="text-white text-sm font-medium">Click to view details</span> */}
+                </div>
+              </div>
+              
+              <div className="p-4 sm:p-6">
+                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
+                  {project.title}
+                </h3>
+                
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2">
+                  {project.description}
+                </p>
+                
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {project.technologies.slice(0, 3).map((tech, techIndex) => (
+                    <span
+                      key={techIndex}
+                      className="text-xs px-2 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {project.technologies.length > 3 && (
+                    <span className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                      +{project.technologies.length - 3} more
+                    </span>
+                  )}
+                </div>
+                
+                <div className="flex justify-between items-center">
+                  <a
+                    href={project.demoLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
+                  >
+                    View Demo
+                  </a>
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+                  >
+                    Source Code
+                  </a>
+                </div>
+              </div>
         </animated.div>
+          ))}
+        </div>
       </div>
       {activeProject && (
         <>
@@ -1280,7 +1322,7 @@ const aboutHeaderAnimation = {
                     </div>
                     <div>
                       <h4 className="text-base sm:text-lg font-semibold text-gray-800 mb-1">Email</h4>
-                      <p className="text-gray-600 text-sm sm:text-base">hanz.pillerva@example.com</p>
+                      <p className="text-gray-600 text-sm sm:text-base">hanzongpillerva@gmail.com</p>
                     </div>
                   </div>
 
@@ -1292,7 +1334,7 @@ const aboutHeaderAnimation = {
                     </div>
                     <div>
                       <h4 className="text-base sm:text-lg font-semibold text-gray-800 mb-1">Phone</h4>
-                      <p className="text-gray-600 text-sm sm:text-base">+63 123 456 7890</p>
+                      <p className="text-gray-600 text-sm sm:text-base">09959164797</p>
                     </div>
                   </div>
 
@@ -1329,7 +1371,7 @@ const aboutHeaderAnimation = {
                 
                 <div className="grid grid-cols-2 gap-4">
                   <a 
-                    href="https://github.com" 
+                    href="https://github.com/hanzong05" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center p-4 rounded-lg border border-gray-200 dark:border-gray-700 
@@ -1343,7 +1385,7 @@ const aboutHeaderAnimation = {
                   </a>
 
                   <a 
-                    href="https://linkedin.com" 
+                    href="https://www.linkedin.com/in/hanz-pillerva-720a20349?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center p-4 rounded-lg border border-gray-200 dark:border-gray-700 
@@ -1357,7 +1399,7 @@ const aboutHeaderAnimation = {
                   </a>
 
                   <a 
-                    href="https://twitter.com" 
+                    href="https://x.com/hnz_pllrv?t=XkKea7LfydF5SjszmrYnMA&s=09" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center p-4 rounded-lg border border-gray-200 dark:border-gray-700 
@@ -1371,7 +1413,7 @@ const aboutHeaderAnimation = {
                   </a>
 
                   <a 
-                    href="https://instagram.com" 
+                    href="https://www.facebook.com/share/1BiFFw51U7/" 
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-center p-4 rounded-lg border border-gray-200 dark:border-gray-700 
@@ -1379,9 +1421,9 @@ const aboutHeaderAnimation = {
                              transition-colors duration-200 group"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-600 group-hover:text-gray-800 mr-3" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44zm0 13.888c-2.209 0-4 1.79-4 4 0 2.209 1.791 4 4 4s4-1.791 4-4c0-2.21-1.791-4-4-4z"/>
+                      <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.811c-3.273 0-4.189 1.724-4.189 4.115v3.885z"/>
                     </svg>
-                    <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900">Instagram</span>
+                    <span className="text-sm font-medium text-gray-700 group-hover:text-gray-900">Facebook</span>
                   </a>
                 </div>
               </div>
