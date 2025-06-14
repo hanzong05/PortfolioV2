@@ -737,7 +737,7 @@ const aboutHeaderAnimation = {
             </animated.div>
             
             <animated.h2 style={subtitleAnimation} className="text-xl sm:text-2xl md:text-3xl text-gray-600 dark:text-gray-300 mb-6 md:mb-8">
-              Full-Stack Web Developer & Technical Specialist
+              Full-Stack Web Developer
             </animated.h2>
             
             <animated.p style={descriptionAnimation} className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mb-8 md:mb-10 max-w-xl mx-auto">
